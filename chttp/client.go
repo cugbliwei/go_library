@@ -1,6 +1,7 @@
 package chttp
 
 import (
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -51,4 +52,24 @@ func HttpProxyClient(timeout time.Duration, proxyURL string) (*http.Client, erro
 		},
 	}
 	return proxyClient, nil
+}
+
+func HttpGet(c *http.Client, url, referer string) string {
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36")
+	if len(referer) > 0 {
+		req.Header.Set("Referer", referer)
+	}
+	resp, err := c.Do(req)
+	if err != nil {
+		log.Println("Client.Do(req) error: ", err)
+		return ""
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	if err != nil {
+		log.Println("ioutil ReadAll error: ", err)
+		return ""
+	}
+	return string(body)
 }
