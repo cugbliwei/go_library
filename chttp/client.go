@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+
+	"golang.org/x/net/proxy"
 )
 
 func HttpClient(timeout time.Duration) *http.Client {
@@ -28,11 +30,11 @@ func HttpClient(timeout time.Duration) *http.Client {
 	}
 }
 
-func HttpProxyClient(timeout time.Duration, proxyURL string) (*http.Client, error) {
+func HttpProxyClient(timeout time.Duration, proxyURL string) *http.Client {
 	proxy, err := url.Parse(proxyURL)
 	if err != nil {
 		log.Println(err)
-		return nil, err
+		return nil
 	}
 	proxyClient := &http.Client{
 		Transport: &http.Transport{
@@ -51,7 +53,28 @@ func HttpProxyClient(timeout time.Duration, proxyURL string) (*http.Client, erro
 			Proxy:                 http.ProxyURL(proxy),
 		},
 	}
-	return proxyClient, nil
+	return proxyClient
+}
+
+func Socks5Client(timeout time.Duration, user, password, ip string) *http.Client { // ip like that 1.1.1.1:29840
+	auth := &proxy.Auth{
+		User:     user,
+		Password: password,
+	}
+	forward := proxy.FromEnvironment()
+	dailer, err := proxy.SOCKS5("tcp", ip, auth, forward)
+	if err != nil {
+		log.Println("proxy socks5 client error: ", err)
+		return nil
+	}
+	return &http.Client{
+		Transport: &http.Transport{
+			Dial:                  dailer.Dial,
+			DisableKeepAlives:     false,
+			ResponseHeaderTimeout: timeout,
+			DisableCompression:    false,
+		},
+	}
 }
 
 func HttpGet(c *http.Client, url, referer string) string {
