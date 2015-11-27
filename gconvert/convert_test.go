@@ -1,4 +1,4 @@
-package convert
+package gconvert
 
 import "testing"
 
@@ -19,7 +19,7 @@ func TestIntToString(t *testing.T) {
 }
 
 func TestFloat64ToString(t *testing.T) {
-	num := Float64ToString(0.1010)
+	num := Float64ToString(0.1010, 3)
 	if num != "0.101" {
 		t.Error(num)
 	}

@@ -1,7 +1,7 @@
-package fetch
+package gfetch
 
 import (
-	"go_library/chttp"
+	"go_library/ghttp"
 	"log"
 	"time"
 
@@ -9,7 +9,7 @@ import (
 )
 
 func FetchPage(url string) *goquery.Document {
-	client := chttp.HttpClient(time.Second * 10)
+	client := ghttp.HttpClient(time.Second * 10)
 	response, err := client.Get(url)
 	if err != nil {
 		log.Println("http get error: ", err)

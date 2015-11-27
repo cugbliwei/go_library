@@ -1,4 +1,4 @@
-package convert
+package gconvert
 
 import (
 	"log"
@@ -25,8 +25,8 @@ func IntToString(number int) string {
 	return strconv.Itoa(number)
 }
 
-func Float64ToString(number float64) string {
-	num := strconv.FormatFloat(number, 'f', -1, 64) // -1可改为7，即保留7位小数
+func Float64ToString(number float64, pointSize int) string {
+	num := strconv.FormatFloat(number, 'f', pointSize, 64) // -1可改为7，即保留7位小数
 	return num
 }
 
