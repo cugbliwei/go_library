@@ -8,6 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+//抓取一个网页，反正goquery.Document方便实时解析
 func FetchPage(url string) *goquery.Document {
 	client := ghttp.HttpClient(time.Second * 10)
 	response, err := client.Get(url)

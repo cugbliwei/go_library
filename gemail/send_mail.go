@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+//smtp服务发送邮件, mailType表示邮件格式是普通文件还是html或其他
 func SendToMail(host, user, password, to, mailType, subject, body string) {
 	hp := strings.Split(host, ":")
 	auth := smtp.PlainAuth("", user, password, hp[0])

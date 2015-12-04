@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+//把字符串写到文件中
 func WriteToFile(filename, content string) error {
 	ret, err := os.Create(filename)
 	defer ret.Close()

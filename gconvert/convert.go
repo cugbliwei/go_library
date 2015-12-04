@@ -7,6 +7,7 @@ import (
 	iconv "github.com/djimenez/iconv-go"
 )
 
+//转换字符编码格式，例如文本是gb2312的，现在转换为utf-8：ConvretCharacterEncoding(str, "gb2312", "utf-8")
 func ConvertCharacterEncoding(msg, oldEncoding, newEncoding string) string {
 	newMsg, err := iconv.ConvertString(msg, oldEncoding, newEncoding)
 	if err != nil {
