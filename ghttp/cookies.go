@@ -36,7 +36,7 @@ func (c *Cookies) getUrlRespHtml(url string) string {
 	req.Header.Set("Cache-Control", "no-cache")
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Host", "zhixing.court.gov.cn")
-	req.Header.Set("Pragma", "no-cache")
+	//req.Header.Set("Pragma", "no-cache")
 	req.Header.Set("Referer", "http://zhixing.court.gov.cn/search/")
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36")
 	resp, err := client.Do(req)
