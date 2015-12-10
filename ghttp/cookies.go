@@ -39,7 +39,6 @@ func (c *Cookies) getUrlRespHtml(url string) string {
 	req.Header.Set("Pragma", "no-cache")
 	req.Header.Set("Referer", "http://zhixing.court.gov.cn/search/")
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36")
-	//req.Header.Set("Cookie", "__jsluid=719e75faa43f0125b63dfede3c27f8d2; __jsl_clearance=1448802894.93|0|HUFkBjKoPW%2FVR8Z7M%2FFRg%2FGNbYE%3D")
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Println("Do  error :", err)
